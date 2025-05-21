@@ -6,18 +6,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.CurrencyExchange
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Wallet
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -48,10 +49,11 @@ import io.github.maikotrindade.koinbase.ui.theme.GrayText
 import io.github.maikotrindade.koinbase.ui.theme.SecondaryBlue
 
 @Composable
-fun PriceScreen() {
+fun PriceScreen(navigateToTransfer: () -> Unit) {
     Scaffold(
+        modifier = Modifier.padding(WindowInsets.systemBars.asPaddingValues()),
         containerColor = DarkBlueBg, bottomBar = {
-            BottomNavigationBar(GrayText)
+            BottomNavigationBar(GrayText, navigateToTransfer)
         }) { innerPadding ->
         Column(
             modifier = Modifier
@@ -64,9 +66,9 @@ fun PriceScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             ChartSection(GrayText)
             Spacer(modifier = Modifier.height(16.dp))
-            ActionButtons(AccentBlue, SecondaryBlue)
+            ActionButtons(AccentBlue, SecondaryBlue, navigateToTransfer)
             Spacer(modifier = Modifier.height(8.dp))
-            TransferButton(SecondaryBlue)
+            TransferButton(SecondaryBlue, navigateToTransfer)
         }
     }
 }
@@ -202,7 +204,7 @@ fun LineChart(
 }
 
 @Composable
-fun ActionButtons(buyColor: Color, sellColor: Color) {
+fun ActionButtons(buyColor: Color, sellColor: Color, navigateToTransfer: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -210,7 +212,7 @@ fun ActionButtons(buyColor: Color, sellColor: Color) {
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Button(
-            onClick = {},
+            onClick = navigateToTransfer,
             colors = ButtonDefaults.buttonColors(containerColor = buyColor),
             shape = RoundedCornerShape(50),
             modifier = Modifier
@@ -220,7 +222,7 @@ fun ActionButtons(buyColor: Color, sellColor: Color) {
             Text(stringResource(R.string.price_screen_buy_button))
         }
         Button(
-            onClick = {},
+            onClick = navigateToTransfer,
             colors = ButtonDefaults.buttonColors(containerColor = sellColor),
             shape = RoundedCornerShape(50),
             modifier = Modifier
@@ -233,9 +235,9 @@ fun ActionButtons(buyColor: Color, sellColor: Color) {
 }
 
 @Composable
-fun TransferButton(bgColor: Color) {
+fun TransferButton(bgColor: Color, navigateToTransfer: () -> Unit) {
     Button(
-        onClick = {},
+        onClick = navigateToTransfer,
         colors = ButtonDefaults.buttonColors(containerColor = bgColor),
         shape = RoundedCornerShape(50),
         modifier = Modifier
@@ -248,8 +250,10 @@ fun TransferButton(bgColor: Color) {
 }
 
 @Composable
-fun BottomNavigationBar(grayText: Color) {
-    NavigationBar(containerColor = Color(0xFF171e36)) {
+fun BottomNavigationBar(grayText: Color, navigateToTransfer: () -> Unit) {
+    NavigationBar(
+        containerColor = Color(0xFF171e36)
+    ) {
         NavigationBarItem(icon = {
             Icon(
                 Icons.Default.Home, contentDescription = null, tint = grayText
@@ -260,7 +264,7 @@ fun BottomNavigationBar(grayText: Color) {
                 color = grayText,
                 fontSize = 12.sp
             )
-        }, selected = false, onClick = {})
+        }, selected = false, onClick = navigateToTransfer)
         NavigationBarItem(icon = {
             Icon(
                 Icons.Default.CurrencyExchange, contentDescription = null, tint = grayText
@@ -271,7 +275,7 @@ fun BottomNavigationBar(grayText: Color) {
                 color = grayText,
                 fontSize = 12.sp
             )
-        }, selected = false, onClick = {})
+        }, selected = false, onClick = navigateToTransfer)
         NavigationBarItem(
             icon = {
                 Icon(
@@ -288,7 +292,8 @@ fun BottomNavigationBar(grayText: Color) {
                 )
             },
             selected = false,
-            onClick = {})
+            onClick = navigateToTransfer
+        )
         NavigationBarItem(
             icon = { Icon(Icons.Default.AccountBox, contentDescription = null, tint = grayText) },
             label = {
@@ -299,12 +304,13 @@ fun BottomNavigationBar(grayText: Color) {
                 )
             },
             selected = false,
-            onClick = {})
+            onClick = navigateToTransfer
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PriceScreenPreview() {
-    PriceScreen()
+    PriceScreen({})
 }

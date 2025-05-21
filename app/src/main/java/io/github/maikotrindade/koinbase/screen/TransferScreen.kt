@@ -3,14 +3,18 @@ package io.github.maikotrindade.koinbase.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,8 +26,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -49,9 +55,10 @@ import io.github.maikotrindade.koinbase.ui.theme.GrayText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TransferScreen() {
+fun TransferScreen(onBack: () -> Unit, onConfirm: () -> Unit) {
     var amount by remember { mutableStateOf("") }
     var toAddress by remember { mutableStateOf("") }
+    var showConfirmation by remember { mutableStateOf(false) }
 
     val mockedTransactions = listOf(
         stringResource(R.string.transfer_screen_received) to "0.00000001 BTC",
@@ -68,7 +75,9 @@ fun TransferScreen() {
     )
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(WindowInsets.systemBars.asPaddingValues()),
         color = DarkBlueBg
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -80,25 +89,23 @@ fun TransferScreen() {
             ) {
                 TopAppBar(
                     title = {
-                        Text(
-                            text = stringResource(R.string.transfer_screen_send_bitcoin),
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
+                    Text(
+                        text = stringResource(R.string.transfer_screen_send_bitcoin),
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                }, navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = stringResource(R.string.transfer_screen_back),
+                            tint = Color.White
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = stringResource(R.string.transfer_screen_back),
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkBlueBg)
+                    }
+                }, colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkBlueBg)
                 )
 
                 SectionTitle(stringResource(R.string.transfer_screen_amount))
@@ -133,18 +140,17 @@ fun TransferScreen() {
                     TransactionItem(type = type, amount = amount, background = GrayText)
                 }
             }
+            ConfirmFooter(onConfirmTransfer = { showConfirmation = true })
 
-            Button(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .height(80.dp)
-                    .padding(16.dp),
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
-                shape = RoundedCornerShape(50),
-            ) {
-                Text(stringResource(R.string.transfer_screen_confirm))
+            if (showConfirmation) {
+                ConfirmationBottomSheet(
+                    amount = amount,
+                    toAddress = toAddress,
+                    onDismiss = { showConfirmation = false },
+                    onConfirm = {
+                        showConfirmation = false
+                        onConfirm()
+                    })
             }
         }
     }
@@ -206,8 +212,78 @@ fun TransactionItem(type: String, amount: String, background: Color) {
     }
 }
 
+@Composable
+fun BoxScope.ConfirmFooter(onConfirmTransfer: () -> Unit) {
+    Button(
+        modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .fillMaxWidth()
+            .height(80.dp)
+            .padding(16.dp),
+        onClick = onConfirmTransfer,
+        colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
+        shape = RoundedCornerShape(50),
+    ) {
+        Text(stringResource(R.string.transfer_screen_confirm))
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ConfirmationBottomSheet(
+    amount: String, toAddress: String, onDismiss: () -> Unit, onConfirm: () -> Unit
+) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        containerColor = DarkBlueBg,
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(R.string.transfer_screen_confirm_title),
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "${stringResource(R.string.transfer_screen_sending)} $amount BTC",
+                color = Color.White
+            )
+            Text(
+                text = "${stringResource(R.string.transfer_screen_to_address)} $toAddress",
+                color = Color.White
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = onConfirm,
+                shape = RoundedCornerShape(50),
+                colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.transfer_screen_confirm))
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.transfer_screen_cancel), color = Color.Gray)
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun TransferScreenPreview() {
-    TransferScreen()
+    TransferScreen(onBack = {}, onConfirm = {})
 }
