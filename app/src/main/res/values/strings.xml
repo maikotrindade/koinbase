@@ -11,4 +11,16 @@
     <string name="price_screen_tab_home">Home</string>
     <string name="price_screen_tab_trade">Trade</string>
     <string name="price_screen_tab_wallet">Wallet</string>
+
+    <string name="transfer_screen_send_bitcoin">Send Bitcoin</string>
+    <string name="transfer_screen_back">Back</string>
+    <string name="transfer_screen_amount">Amount</string>
+    <string name="transfer_screen_to">To</string>
+    <string name="transfer_screen_paste_wallet_address">Paste wallet address</string>
+    <string name="transfer_screen_available">Available</string>
+    <string name="transfer_screen_transactions">Transactions</string>
+    <string name="transfer_screen_confirm">Confirm</string>
+    <string name="transfer_screen_received">Received</string>
+    <string name="transfer_screen_sent">Sent</string>
+
 </resources>
