@@ -11,6 +11,7 @@
     <string name="price_screen_tab_home">Home</string>
     <string name="price_screen_tab_trade">Trade</string>
     <string name="price_screen_tab_wallet">Wallet</string>
+    <string name="price_screen_tab_about">About</string>
 
     <string name="transfer_screen_send_bitcoin">Send Bitcoin</string>
     <string name="transfer_screen_back">Back</string>

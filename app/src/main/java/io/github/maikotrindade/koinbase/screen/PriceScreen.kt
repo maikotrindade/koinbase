@@ -13,9 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.CurrencyExchange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Wallet
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -100,11 +103,16 @@ fun PriceSection() {
             modifier = Modifier.padding(top = 16.dp, bottom = 4.dp)
         )
         Text(
-            text = stringResource(R.string.price_screen_price_change), color = Color(0xFF8d9bce), fontSize = 14.sp
+            text = stringResource(R.string.price_screen_price_change),
+            color = Color(0xFF8d9bce),
+            fontSize = 14.sp
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = stringResource(R.string.price_screen_currency_pair), color = Color.White, fontWeight = FontWeight.Medium, fontSize = 16.sp
+            text = stringResource(R.string.price_screen_currency_pair),
+            color = Color.White,
+            fontWeight = FontWeight.Medium,
+            fontSize = 16.sp
         )
         Text(
             text = stringResource(R.string.price_screen_price_value),
@@ -242,25 +250,54 @@ fun TransferButton(bgColor: Color) {
 @Composable
 fun BottomNavigationBar(grayText: Color) {
     NavigationBar(containerColor = Color(0xFF171e36)) {
+        NavigationBarItem(icon = {
+            Icon(
+                Icons.Default.Home, contentDescription = null, tint = grayText
+            )
+        }, label = {
+            Text(
+                stringResource(R.string.price_screen_tab_home),
+                color = grayText,
+                fontSize = 12.sp
+            )
+        }, selected = false, onClick = {})
+        NavigationBarItem(icon = {
+            Icon(
+                Icons.Default.CurrencyExchange, contentDescription = null, tint = grayText
+            )
+        }, label = {
+            Text(
+                stringResource(R.string.price_screen_tab_trade),
+                color = grayText,
+                fontSize = 12.sp
+            )
+        }, selected = false, onClick = {})
         NavigationBarItem(
             icon = {
                 Icon(
-                    Icons.Default.Home,
+                    Icons.Default.Wallet,
                     contentDescription = null,
                     tint = grayText
                 )
             },
-            label = { Text(stringResource(R.string.price_screen_tab_home), color = grayText, fontSize = 12.sp) },
+            label = {
+                Text(
+                    stringResource(R.string.price_screen_tab_wallet),
+                    color = grayText,
+                    fontSize = 12.sp
+                )
+            },
             selected = false,
             onClick = {})
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Refresh, contentDescription = null, tint = grayText) },
-            label = { Text(stringResource(R.string.price_screen_tab_trade), color = grayText, fontSize = 12.sp) },
-            selected = false,
-            onClick = {})
-        NavigationBarItem(
-            icon = { Icon(Icons.Default.ShoppingCart, contentDescription = null, tint = grayText) },
-            label = { Text(stringResource(R.string.price_screen_tab_wallet), color = grayText, fontSize = 12.sp) },
+            icon = { Icon(Icons.Default.AccountBox, contentDescription = null, tint = grayText) },
+            label = {
+                Text(
+                    stringResource(R.string.price_screen_tab_about),
+                    color = grayText,
+                    fontSize = 12.sp
+                )
+            },
             selected = false,
             onClick = {})
     }
