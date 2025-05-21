@@ -40,21 +40,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.maikotrindade.koinbase.R
 import io.github.maikotrindade.koinbase.ui.theme.AccentBlue
-import io.github.maikotrindade.koinbase.ui.theme.DarkBlue
+import io.github.maikotrindade.koinbase.ui.theme.DarkBlueBg
 import io.github.maikotrindade.koinbase.ui.theme.GrayText
 import io.github.maikotrindade.koinbase.ui.theme.SecondaryBlue
 
 @Composable
 fun PriceScreen() {
     Scaffold(
-        containerColor = DarkBlue, bottomBar = {
+        containerColor = DarkBlueBg, bottomBar = {
             BottomNavigationBar(GrayText)
         }) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .background(DarkBlue)
+                .background(DarkBlueBg)
         ) {
             TopBar()
             PriceSection()
@@ -268,6 +268,6 @@ fun BottomNavigationBar(grayText: Color) {
 
 @Preview(showBackground = true)
 @Composable
-private fun BitcoinScreenPreview() {
+private fun PriceScreenPreview() {
     PriceScreen()
 }
