@@ -4,15 +4,15 @@
 
 # Journeys with Android Studio Demo
 
-This is a simple demo project built to test the new [Gemini Journeys](https://developer.android.com/studio/preview/gemini/journeys) feature in Android Studio.
+This is a simple demo project built to test the new [Journeys for Android Studio](https://developer.android.com/studio/preview/gemini/journeys) feature in Android Studio.
 
 > **Note:** This is an experimental project and does **not** follow any architectural pattern. All screens were designed using [Stitch](https://stitch.withgoogle.com/), a UI prototyping tool by Google.
 
 ---
 
-## 💡 What is Gemini Journeys?
+## 💡 What is Journeys for Android Studio?
 
-Gemini Journeys is a new tool available in Android Studio that helps developers generate code for common multi-step flows based on prompts. It leverages Google's Gemini AI and can generate Kotlin code compatible with Jetpack Compose.
+Journeys for Android Studio is a new tool available in Android Studio that helps developers generate code for common multi-step flows based on prompts. It leverages Google's Gemini AI and can generate Kotlin code compatible with Jetpack Compose.
 
 <video src="https://github.com/user-attachments/assets/22375815-4a8a-4f16-8db9-9d6678d5781d"/>
 
