@@ -1,7 +1,10 @@
+import org.gradle.internal.impldep.org.jsoup.nodes.Entities
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -49,6 +52,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.compose.material.icons.extended)
+
+    implementation(libs.navigation.compose)
+    implementation(libs.navigation.runtime.ktx)
+    implementation(libs.navigation.annotations)
+
+    ksp(libs.navigation.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
