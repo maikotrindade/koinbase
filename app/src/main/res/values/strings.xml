@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">koinbase</string>
+    <string name="price_screen_title">Bitcoin</string>
+    <string name="price_screen_price_value">$29,456.78</string>
+    <string name="price_screen_price_change">+$123.45 (0.42%)</string>
+    <string name="price_screen_currency_pair">BTC/USD</string>
+    <string name="price_screen_chart_placeholder">Chart Placeholder</string>
+    <string name="price_screen_buy_button">Buy</string>
+    <string name="price_screen_sell_button">Sell</string>
+    <string name="price_screen_transfer_button">Transfer</string>
+    <string name="price_screen_tab_home">Home</string>
+    <string name="price_screen_tab_trade">Trade</string>
+    <string name="price_screen_tab_wallet">Wallet</string>
 </resources>
