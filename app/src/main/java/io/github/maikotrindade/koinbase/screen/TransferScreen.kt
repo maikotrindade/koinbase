@@ -1,5 +1,7 @@
 package io.github.maikotrindade.koinbase.screen
 
+import android.R.attr.onClick
+import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,6 +54,7 @@ import io.github.maikotrindade.koinbase.R
 import io.github.maikotrindade.koinbase.ui.theme.AccentBlue
 import io.github.maikotrindade.koinbase.ui.theme.DarkBlueBg
 import io.github.maikotrindade.koinbase.ui.theme.GrayText
+import io.github.maikotrindade.koinbase.ui.theme.SecondaryBlue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,23 +92,23 @@ fun TransferScreen(onBack: () -> Unit, onConfirm: () -> Unit) {
             ) {
                 TopAppBar(
                     title = {
-                    Text(
-                        text = stringResource(R.string.transfer_screen_send_bitcoin),
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp
-                    )
-                }, navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = stringResource(R.string.transfer_screen_back),
-                            tint = Color.White
+                        Text(
+                            text = stringResource(R.string.transfer_screen_send_bitcoin),
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
                         )
-                    }
-                }, colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkBlueBg)
+                    }, navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = stringResource(R.string.transfer_screen_back),
+                                tint = Color.White
+                            )
+                        }
+                    }, colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkBlueBg)
                 )
 
                 SectionTitle(stringResource(R.string.transfer_screen_amount))
@@ -242,24 +245,37 @@ fun ConfirmationBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
             Text(
                 text = stringResource(R.string.transfer_screen_confirm_title),
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "${stringResource(R.string.transfer_screen_sending)} $amount BTC",
-                color = Color.White
+                text = stringResource(R.string.transfer_screen_sending),
+                color = Color.White,
+                fontSize = 17.sp,
             )
             Text(
-                text = "${stringResource(R.string.transfer_screen_to_address)} $toAddress",
-                color = Color.White
+                text = amount,
+                color = Color.White,
+                fontSize = 17.sp,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = stringResource(R.string.transfer_screen_to_address),
+                color = Color.White,
+                fontSize = 17.sp,
+            )
+            Text(
+                text = toAddress,
+                color = Color.White,
+                fontSize = 17.sp,
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -270,12 +286,17 @@ fun ConfirmationBottomSheet(
                 colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.transfer_screen_confirm))
+                Text(stringResource(R.string.transfer_screen_confirm_button))
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            TextButton(onClick = onDismiss) {
+            Button(
+                onClick = onDismiss,
+                shape = RoundedCornerShape(50),
+                colors = ButtonDefaults.buttonColors(containerColor = SecondaryBlue),
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text(stringResource(R.string.transfer_screen_cancel), color = Color.Gray)
             }
         }

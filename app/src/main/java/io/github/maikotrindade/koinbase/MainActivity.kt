@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                             navController.popBackStack()
                         }, onConfirm = {
                             navController.popBackStack()
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                         })
                     }
                 }
