@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!-- @formatter:off -->
+<journey name="Transfer Bitcoin">
+    <description>A Journey that tests the user will be able to transfer Bitcoin to another wallet address</description>
+    <actions>
+        <action>verify the button Buy is enabled and tap on button Buy</action><action>input a 0.0000001 in the Amount text field</action><action>input bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq in the Wallet Address  text field</action><action>tap Confirm button</action><action>tap Confirm Transaction button in the modal</action><action>wait the modal is presented</action><action>verify there is a Success toast</action><action>verify the user was redirected to Home screen</action>
+    </actions>
+</journey>
