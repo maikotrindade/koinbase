@@ -24,4 +24,11 @@
     <string name="transfer_screen_received">Received</string>
     <string name="transfer_screen_sent">Sent</string>
 
+    <string name="transfer_screen_confirm_title">Confirm Transaction</string>
+    <string name="transfer_screen_sending">Sending</string>
+    <string name="transfer_screen_to_address">To</string>
+    <string name="transfer_screen_cancel">Cancel</string>
+
+    <string name="success_dialog_transfer_successs_description">Transfer was a success!</string>
+
 </resources>

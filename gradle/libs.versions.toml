@@ -9,7 +9,7 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2025.05.00"
 compose-material-icons = "1.7.8"
-navigation = "3.0.0"
+navigation = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,11 +29,10 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation" }
-navigation-annotations = { group = "androidx.navigation", name = "navigation-compose-annotations", version.ref = "navigation" }
-navigation-compiler = { group = "androidx.navigation", name = "navigation-compose-compiler", version.ref = "navigation" }
 
 [plugins]
+navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ksp = "com.google.devtools.ksp:1.9.0-1.0.13"
+ksp = "com.google.devtools.ksp:2.0.21-1.0.27"

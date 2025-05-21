@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.navigation.safe.args)
 }
 
 android {
@@ -56,9 +57,6 @@ dependencies {
 
     implementation(libs.navigation.compose)
     implementation(libs.navigation.runtime.ktx)
-    implementation(libs.navigation.annotations)
-
-    ksp(libs.navigation.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
